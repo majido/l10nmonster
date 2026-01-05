@@ -48,6 +48,7 @@ async function setupToolsOnServer(server, monsterManager) {
 
     for (const ToolClass of builtInTools) {
         const toolName = ToolClass.metadata.name;
+        // Allow built-in tools to be overridden by external tools that may have already been registered.
         if (!registry.hasTool(toolName)) {
             registry.registerTool(ToolClass);
         }

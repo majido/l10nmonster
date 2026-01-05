@@ -113,10 +113,12 @@ registerTool(MyCustomTool);
 
 ### Tool Override
 
-Registered tools can override built-in tools by using the same tool name. This allows customization of default behavior:
+Registered tools can override built-in tools by using the same tool name. This allows customization of default behavior.
+
+**Important:** Register overrides at startup in your `l10nmonster.config.mjs` before calling `serve.registerExtension('mcp', createMcpRoutes)`. Tools are discovered when the first MCP server instance is created, so late registrations won't affect running servers.
 
 ```javascript
-import { McpTool } from '@l10nmonster/mcp';
+import { McpTool, registerTool } from '@l10nmonster/mcp';
 import { z } from 'zod';
 
 // Override the built-in 'status' tool with custom implementation
@@ -135,6 +137,7 @@ export class CustomStatusTool extends McpTool {
     }
 }
 
+// In l10nmonster.config.mjs - register before serve.registerExtension
 registerTool(CustomStatusTool);
 ```
 
